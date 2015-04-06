@@ -1,4 +1,4 @@
-# ascii_canvas
+# ASCII canvas
 ASCII canvas for drawing in console using ASCII chars
 
 Description:

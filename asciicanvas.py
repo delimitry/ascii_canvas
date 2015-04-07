@@ -107,8 +107,8 @@ class AsciiCanvas(object):
         Add nine-patch rectangle
         """
         default_outline_3x3_chars = (
-            '.', '-', '.', 
-            '|', ' ', '|', 
+            '.', '-', '.',
+            '|', ' ', '|',
             '`', '-', "'"
         )
         if not outline_3x3_chars:

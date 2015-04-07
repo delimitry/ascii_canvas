@@ -9,16 +9,15 @@ from asciicanvas import AsciiCanvas
 
 
 class TestAsciiCanvas(unittest.TestCase):
-
     def test_canvas_size(self):
         ascii_canvas = AsciiCanvas(10, 10)
         self.assertEqual(ascii_canvas.cols, 10)
         self.assertEqual(ascii_canvas.lines, 10)
         # check ranges
         with self.assertRaises(Exception):
-           ascii_canvas = AsciiCanvas(-1, -1)
+            ascii_canvas = AsciiCanvas(-1, -1)
         with self.assertRaises(Exception):
-           ascii_canvas = AsciiCanvas(0, 0)
+            ascii_canvas = AsciiCanvas(0, 0)
         with self.assertRaises(Exception):
             ascii_canvas = AsciiCanvas(-10, 10)
         with self.assertRaises(Exception):
@@ -32,18 +31,18 @@ class TestAsciiCanvas(unittest.TestCase):
         ascii_canvas = AsciiCanvas(10, 10)
         canvas_str = (' ' * 10 + '\n') * 9 + ' ' * 10
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)
-        
+
         ascii_canvas = AsciiCanvas(1, 1, '#')
         canvas_str = '#'
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)
-        
+
         ascii_canvas = AsciiCanvas(2, 1, 'XYZ')
         canvas_str = 'XX'
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)
-        
+
         ascii_canvas.clear()
         # must be the same as before clear
-        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str,)
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)
 
     def test_lines_draw(self):
         ascii_canvas = AsciiCanvas(5, 2)
@@ -214,6 +213,7 @@ class TestAsciiCanvas(unittest.TestCase):
             last('     ')
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)
         self.assertEqual(str(ascii_canvas), canvas_str)
+
 
 def line(s):
     return s + '\n'

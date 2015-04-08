@@ -3,6 +3,8 @@
 # Author: delimitry
 #-----------------------------------------------------------------------
 
+import math
+
 
 class AsciiCanvas(object):
     """
@@ -17,10 +19,7 @@ class AsciiCanvas(object):
             raise Exception('Canvas cols/lines must be in range [1..1000]')
         self.cols = cols
         self.lines = lines
-        if not fill_char:
-            fill_char = ' '
-        elif len(fill_char) > 1:
-            fill_char = fill_char[0]
+        fill_char = self.__filter_char(fill_char, 'o')
         self.fill_char = fill_char
         self.canvas = [[fill_char] * (cols) for _ in xrange(lines)]
 
@@ -36,14 +35,19 @@ class AsciiCanvas(object):
         """
         print(self.get_canvas_as_str())
 
+    def add_point(self, x, y, fill_char='o'):
+        """
+        Add point
+        """
+        fill_char = self.__filter_char(fill_char, 'o')
+        if self.check_coord_in_range(x, y):
+            self.canvas[y][x] = fill_char
+
     def add_line(self, x0, y0, x1, y1, fill_char='o'):
         """
         Add ASCII line (x0, y0 -> x1, y1) to the canvas, fill line with `fill_char`
         """
-        if not fill_char:
-            fill_char = 'o'
-        elif len(fill_char) > 1:
-            fill_char = fill_char[0]
+        fill_char = self.__filter_char(fill_char, 'o')
         if x0 > x1:
             # swap A and B
             x1, x0 = x0, x1
@@ -86,14 +90,8 @@ class AsciiCanvas(object):
         """
         Add rectangle filled with `fill_char` and outline with `outline_char`
         """
-        if not fill_char:
-            fill_char = ' '
-        elif len(fill_char) > 1:
-            fill_char = fill_char[0]
-        if not outline_char:
-            outline_char = 'o'
-        elif len(outline_char) > 1:
-            outline_char = outline_char[0]
+        fill_char = self.__filter_char(fill_char, ' ')
+        outline_char = self.__filter_char(outline_char, 'o')
         for px in xrange(x, x + w):
             for py in xrange(y, y + h):
                 if self.check_coord_in_range(px, py):
@@ -116,10 +114,7 @@ class AsciiCanvas(object):
         # filter chars
         filtered_outline_3x3_chars = []
         for index, char in enumerate(outline_3x3_chars[0:9]):
-            if not char:
-                char = default_outline_3x3_chars[index]
-            elif len(char) > 1:
-                char = char[0]
+            char = self.__filter_char(char, default_outline_3x3_chars[index])
             filtered_outline_3x3_chars.append(char)
         for px in xrange(x, x + w):
             for py in xrange(y, y + h):
@@ -160,3 +155,13 @@ class AsciiCanvas(object):
         Return canvas as a string
         """
         return self.get_canvas_as_str()
+
+    def __filter_char(self, char, default_char):
+        """
+        Filter input char
+        """
+        if not char:
+            return default_char[0] if default_char else 'o'
+        elif len(char) > 1:
+            return char[0]
+        return char

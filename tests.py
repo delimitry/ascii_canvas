@@ -44,13 +44,42 @@ class TestAsciiCanvas(unittest.TestCase):
         # must be the same as before clear
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)
 
-    def test_lines_draw(self):
+    def test_point_draw(self):
+        ascii_canvas = AsciiCanvas(2, 2)
+        ascii_canvas.add_point(0, 0)
+        canvas_with_points_str = \
+            line('o ') + \
+            last('  ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_points_str, 'Incorrect canvas with lines')
+
+        ascii_canvas = AsciiCanvas(2, 2)
+        ascii_canvas.add_point(-5, -5)
+        canvas_with_points_str = \
+            line('  ') + \
+            last('  ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_points_str, 'Incorrect canvas with lines')
+
+        ascii_canvas = AsciiCanvas(5, 5)
+        ascii_canvas.add_point(1, 1, 'Ooo')
+        ascii_canvas.add_point(3, 3, '*')
+        ascii_canvas.add_point(0, 4, '.')
+        ascii_canvas.add_point(4, 0, '')
+        ascii_canvas.add_point(4, 1, ' ')
+        canvas_with_lines_str = \
+            line('    o') + \
+            line(' O   ') + \
+            line('     ') + \
+            line('   * ') + \
+            last('.    ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_lines_str, 'Incorrect canvas with lines')
+
+    def test_line_draw(self):
         ascii_canvas = AsciiCanvas(5, 2)
         ascii_canvas.add_line(0, 0, 0, 0)
         canvas_with_lines_str = \
             line('o    ') + \
             last('     ')
-        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_lines_str)
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_lines_str, 'Incorrect canvas with lines')
 
         ascii_canvas = AsciiCanvas(5, 5)
         ascii_canvas.add_line(-5, -5, 10, 10, '****')
@@ -61,6 +90,17 @@ class TestAsciiCanvas(unittest.TestCase):
             line('  #  ') + \
             line(' # * ') + \
             last('#   *')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_lines_str, 'Incorrect canvas with lines')
+
+        ascii_canvas = AsciiCanvas(5, 5)
+        ascii_canvas.add_line(0, 0, 4, 0, fill_char='-')
+        ascii_canvas.add_line(0, 0, 0, 3, fill_char='|')
+        canvas_with_lines_str = \
+            line('|----') + \
+            line('|    ') + \
+            line('|    ') + \
+            line('|    ') + \
+            last('     ')
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_lines_str, 'Incorrect canvas with lines')
 
     def test_text_draw(self):
@@ -165,10 +205,10 @@ class TestAsciiCanvas(unittest.TestCase):
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_rect_str, 'Incorrect canvas with 9-patch rect')
 
         ascii_canvas = AsciiCanvas(2, 2)
-        ascii_canvas.add_nine_patch_rect(0, 0, 2, 2)
+        ascii_canvas.add_nine_patch_rect(0, 0, 0, 0)
         canvas_with_rect_str = \
-            line('..') + \
-            last("`'")
+            line('  ') + \
+            last('  ')
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_rect_str, 'Incorrect canvas with 9-patch rect')
 
         ascii_canvas = AsciiCanvas(2, 2)
@@ -205,10 +245,11 @@ class TestAsciiCanvas(unittest.TestCase):
 
     def test_output(self):
         ascii_canvas = AsciiCanvas(5, 5)
+        ascii_canvas.add_point(2, 2)
         canvas_str = \
             line('     ') + \
             line('     ') + \
-            line('     ') + \
+            line('  o  ') + \
             line('     ') + \
             last('     ')
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)

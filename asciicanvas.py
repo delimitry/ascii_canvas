@@ -138,6 +138,59 @@ class AsciiCanvas(object):
                     else:
                         self.canvas[py][px] = filtered_outline_3x3_chars[4]
 
+    def add_ellipse(self, x, y, w, h, fill_char=' ', outline_char='o'):
+        """
+        Add ellipse inside a rectangle filled with `fill_char` and outline with `outline_char`
+        """
+        if w < 1 or h < 1:
+            return
+        fill_char = self.__filter_char(fill_char, ' ')
+        outline_char = self.__filter_char(outline_char, 'o')
+        # Bresenham's algorithm to plot ellipse is used
+        a = w
+        b = h - 1
+        eight_a_square = 8 * a * a
+        eight_b_square = 8 * b * b
+        x_change = 4 * b * b * (1.0 - a)
+        y_change = 4 * a * a * ((b & 1) + 1)
+        ellipse_error = x_change + y_change + (b & 1) * a * a
+        x0 = x
+        x1 = x0 + w - 1
+        y0 = y + h / 2
+        y1 = y0 - (b & 1)
+        outline_points = []
+        while x0 <= x1:
+            # add fill
+            if x0 > x and x0 < x + w - 1:
+                self.add_line(int(x0), int(y0), int(x0), int(y1), fill_char)
+                self.add_line(int(x1), int(y0), int(x1), int(y1), fill_char)
+            outline_points.append((int(x1), int(y0)))
+            outline_points.append((int(x0), int(y0)))
+            outline_points.append((int(x0), int(y1)))
+            outline_points.append((int(x1), int(y1)))
+            two_ellipse_error = 2 * ellipse_error
+            if two_ellipse_error <= y_change:
+                y0 += 1
+                y1 -= 1
+                y_change += eight_a_square
+                ellipse_error += y_change
+            if two_ellipse_error >= x_change or 2 * ellipse_error > y_change:
+                x0 += 1
+                x1 -= 1
+                x_change += eight_b_square
+                ellipse_error += x_change
+        while y0 - y1 <= b:
+            self.add_point(int(x0 - 1), int(y0), outline_char) 
+            self.add_point(int(x1 + 1), int(y0), outline_char)
+            self.add_point(int(x0 - 1), int(y1), outline_char)
+            self.add_point(int(x1 + 1), int(y1), outline_char)
+            y0 += 1
+            y1 -= 1
+        # draw outline over fill
+        for outline_point in outline_points:
+            px, py = outline_point
+            self.add_point(px, py, outline_char)
+
     def check_coord_in_range(self, x, y):
         """
         Check that coordinate (x, y) is in range, to prevent out of range error

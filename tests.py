@@ -225,6 +225,107 @@ class TestAsciiCanvas(unittest.TestCase):
             last('  ')
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_rect_str, 'Incorrect canvas with 9-patch rect')
 
+    def test_ellipse_draw(self):
+        ascii_canvas = AsciiCanvas(3, 3)
+        ascii_canvas.add_ellipse(0, 0, 2, 2)
+        canvas_str = \
+            line('oo ') + \
+            line('oo ') + \
+            last('   ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
+        ascii_canvas = AsciiCanvas(3, 3)
+        ascii_canvas.add_ellipse(0, 0, 1, 1)
+        canvas_str = \
+            line('o  ') + \
+            line('   ') + \
+            last('   ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
+        ascii_canvas = AsciiCanvas(3, 3)
+        ascii_canvas.add_ellipse(0, 0, 0, 0)
+        canvas_str = \
+            line('   ') + \
+            line('   ') + \
+            last('   ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
+        ascii_canvas = AsciiCanvas(3, 3)
+        ascii_canvas.add_ellipse(3, 3, -2, -2)
+        canvas_str = \
+            line('   ') + \
+            line('   ') + \
+            last('   ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
+        ascii_canvas = AsciiCanvas(3, 3)
+        ascii_canvas.add_ellipse(0, 2, 3, 1)
+        canvas_str = \
+            line('   ') + \
+            line('   ') + \
+            last('ooo')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
+        ascii_canvas = AsciiCanvas(5, 5)
+        ascii_canvas.add_ellipse(1, 1, 3, 3, 'o', 'O')
+        canvas_str = \
+            line('     ') + \
+            line('  O  ') + \
+            line(' OoO ') + \
+            line('  O  ') + \
+            last('     ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
+        ascii_canvas = AsciiCanvas(5, 5)
+        ascii_canvas.add_ellipse(0, 0, 4, 5)
+        canvas_str = \
+            line(' oo  ') + \
+            line('o  o ') + \
+            line('o  o ') + \
+            line('o  o ') + \
+            last(' oo  ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
+        ascii_canvas = AsciiCanvas(5, 5)
+        ascii_canvas.add_ellipse(0, 0, 3, 5)
+        canvas_str = \
+            line(' o   ') + \
+            line('o o  ') + \
+            line('o o  ') + \
+            line('o o  ') + \
+            last(' o   ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
+        ascii_canvas = AsciiCanvas(5, 5)
+        ascii_canvas.add_ellipse(0, -1, 2, 7)
+        canvas_str = \
+            line('oo   ') + \
+            line('oo   ') + \
+            line('oo   ') + \
+            line('oo   ') + \
+            last('oo   ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
+        ascii_canvas = AsciiCanvas(5, 5)
+        ascii_canvas.add_ellipse(0, 0, 5, 3)
+        canvas_str = \
+            line(' ooo ') + \
+            line('o   o') + \
+            line(' ooo ') + \
+            line('     ') + \
+            last('     ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
+        ascii_canvas = AsciiCanvas(15, 5)
+        ascii_canvas.add_ellipse(0, 0, 15, 5, '.')
+        canvas_str = \
+            line('   ooooooooo   ') + \
+            line(' oo.........oo ') + \
+            line('o.............o') + \
+            line(' oo.........oo ') + \
+            last('   ooooooooo   ')
+        self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
+
     def test_draw_order(self):
         ascii_canvas = AsciiCanvas(3, 3)
         ascii_canvas.add_text(0, 0, 'TE')

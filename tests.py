@@ -5,7 +5,8 @@
 #-----------------------------------------------------------------------
 
 import unittest
-from asciicanvas import AsciiCanvas
+from style import Style
+from asciicanvas_colored import AsciiCanvas
 
 
 class TestAsciiCanvas(unittest.TestCase):
@@ -32,11 +33,11 @@ class TestAsciiCanvas(unittest.TestCase):
         canvas_str = (' ' * 10 + '\n') * 9 + ' ' * 10
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)
 
-        ascii_canvas = AsciiCanvas(1, 1, '#')
+        ascii_canvas = AsciiCanvas(1, 1, Style('#'))
         canvas_str = '#'
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)
 
-        ascii_canvas = AsciiCanvas(2, 1, 'XYZ')
+        ascii_canvas = AsciiCanvas(2, 1, Style('XYZ'))
         canvas_str = 'XX'
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)
 
@@ -60,11 +61,11 @@ class TestAsciiCanvas(unittest.TestCase):
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_points_str, 'Incorrect canvas with lines')
 
         ascii_canvas = AsciiCanvas(5, 5)
-        ascii_canvas.add_point(1, 1, 'Ooo')
-        ascii_canvas.add_point(3, 3, '*')
-        ascii_canvas.add_point(0, 4, '.')
-        ascii_canvas.add_point(4, 0, '')
-        ascii_canvas.add_point(4, 1, ' ')
+        ascii_canvas.add_point(1, 1, Style('Ooo'))
+        ascii_canvas.add_point(3, 3, Style('*'))
+        ascii_canvas.add_point(0, 4, Style('.'))
+        ascii_canvas.add_point(4, 0, Style(''))
+        ascii_canvas.add_point(4, 1, Style(' '))
         canvas_with_lines_str = \
             line('    o') + \
             line(' O   ') + \
@@ -82,8 +83,8 @@ class TestAsciiCanvas(unittest.TestCase):
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_lines_str, 'Incorrect canvas with lines')
 
         ascii_canvas = AsciiCanvas(5, 5)
-        ascii_canvas.add_line(-5, -5, 10, 10, '****')
-        ascii_canvas.add_line(4, 0, 0, 4, '#')
+        ascii_canvas.add_line(-5, -5, 10, 10, Style('****'))
+        ascii_canvas.add_line(4, 0, 0, 4, Style('#'))
         canvas_with_lines_str = \
             line('*   #') + \
             line(' * # ') + \
@@ -93,8 +94,8 @@ class TestAsciiCanvas(unittest.TestCase):
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_lines_str, 'Incorrect canvas with lines')
 
         ascii_canvas = AsciiCanvas(5, 5)
-        ascii_canvas.add_line(0, 0, 4, 0, fill_char='-')
-        ascii_canvas.add_line(0, 0, 0, 3, fill_char='|')
+        ascii_canvas.add_line(0, 0, 4, 0, style=Style('-'))
+        ascii_canvas.add_line(0, 0, 0, 3, style=Style('|'))
         canvas_with_lines_str = \
             line('|----') + \
             line('|    ') + \
@@ -138,7 +139,7 @@ class TestAsciiCanvas(unittest.TestCase):
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_rect_str, 'Incorrect canvas with rect')
 
         ascii_canvas = AsciiCanvas(5, 5)
-        ascii_canvas.add_rect(0, 0, 5, 5, fill_char='.', outline_char='#')
+        ascii_canvas.add_rect(0, 0, 5, 5, fill_style=Style('.'), outline_style=Style('#'))
         canvas_with_rect_str = \
             line('#####') + \
             line('#...#') + \
@@ -183,12 +184,12 @@ class TestAsciiCanvas(unittest.TestCase):
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_rect_str, 'Incorrect canvas with 9-patch rect')
 
         ascii_canvas = AsciiCanvas(5, 5)
-        outline_3x3_chars = (
-            '123'
-            '456'
-            '789'
+        nine_patch_style = (
+            Style('1'), Style('2'), Style('3'),
+            Style('4'), Style('5'), Style('6'),
+            Style('7'), Style('8'), Style('9')
         )
-        ascii_canvas.add_nine_patch_rect(0, 0, 5, 5, outline_3x3_chars)
+        ascii_canvas.add_nine_patch_rect(0, 0, 5, 5, nine_patch_style)
         canvas_with_rect_str = \
             line('12223') + \
             line('45556') + \
@@ -212,7 +213,7 @@ class TestAsciiCanvas(unittest.TestCase):
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_with_rect_str, 'Incorrect canvas with 9-patch rect')
 
         ascii_canvas = AsciiCanvas(2, 2)
-        ascii_canvas.add_nine_patch_rect(1, 1, 1, 1, '123456789')
+        ascii_canvas.add_nine_patch_rect(1, 1, 1, 1, nine_patch_style)
         canvas_with_rect_str = \
             line('  ') + \
             last(' 1')
@@ -267,7 +268,7 @@ class TestAsciiCanvas(unittest.TestCase):
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
 
         ascii_canvas = AsciiCanvas(5, 5)
-        ascii_canvas.add_ellipse(1, 1, 3, 3, 'o', 'O')
+        ascii_canvas.add_ellipse(1, 1, 3, 3, Style('o'), Style('O'))
         canvas_str = \
             line('     ') + \
             line('  O  ') + \
@@ -317,7 +318,7 @@ class TestAsciiCanvas(unittest.TestCase):
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str, 'Incorrect canvas with ellipse')
 
         ascii_canvas = AsciiCanvas(15, 5)
-        ascii_canvas.add_ellipse(0, 0, 15, 5, '.')
+        ascii_canvas.add_ellipse(0, 0, 15, 5, Style('.'))
         canvas_str = \
             line('   ooooooooo   ') + \
             line(' oo.........oo ') + \

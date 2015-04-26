@@ -35,7 +35,7 @@ if sys.platform == 'win32':
 	normal, bold, underline = 0, 1, 4
 	black, blue, green, aqua, red, purple, yellow, gray = range(0, 8)
 	dark_gray, light_blue, light_green, light_aqua, light_red, light_purple, light_yellow, white = range(8, 16)
-	cyan, magenta = aqua, purple
+	brown, cyan, magenta = yellow, aqua, purple
 	light_cyan, light_magenta = light_aqua, light_purple
 	default = -1
 
@@ -71,7 +71,7 @@ else:
 	normal, bold, underline = 0, 1, 4
 	black, red, green, yellow, blue, magenta, cyan, gray = range(0, 8)
 	dark_gray, light_red, light_green, light_yellow, light_blue, light_magenta, light_cyan, white = range(60, 68)
-	aqua, purple = cyan, magenta
+	brown, aqua, purple = yellow, cyan, magenta
 	light_aqua, light_purple = light_cyan, light_magenta
 	default = -1
 	reset = '\x1b[0m'
@@ -106,5 +106,43 @@ else:
 		print('=' * 9 * 16)
 
 
+# terminal colors to rgb
+terminal_colors = {
+	black: (0, 0, 0),
+	blue: (0, 0, 128),
+	green: (0, 128, 0),
+	aqua: (0, 128, 128),  # cyan
+	red: (128, 0, 0),
+	purple: (128, 0, 128),  # magenta
+	yellow: (128, 128, 0),   # brown
+	gray: (192, 192, 192),
+	dark_gray: (128, 128, 128), 
+	light_blue: (0, 0, 255),
+	light_green: (0, 255, 0),
+	light_aqua: (0, 255, 255),  # light_cyan
+	light_red: (255, 0, 0),
+	light_purple: (255, 0, 255),  # light_magenta
+	light_yellow: (255, 255, 0),
+	white: (255, 255, 255)
+}
+
+
+def rgb_to_terminal_color(rgb_color):
+	"""
+	Convert RGB color to the nearest terminal color
+	"""
+	r, g, b = rgb_color
+	if not ((0 <= r <= 255) and (0 <= g <= 255) and (0 <= b <= 255)):
+		raise Exception('R, G, B values must be in [0..255]')
+	min_term_color = -1
+	min_rgb_sum = 255 * 3
+	for term_color, rgb in terminal_colors.iteritems():
+		rgb_sum = sum(map(lambda x: abs(x[0] - x[1]), zip(rgb_color, rgb)))
+		if rgb_sum < min_rgb_sum:
+			min_rgb_sum = rgb_sum
+			min_term_color = term_color
+	return min_term_color
+
+
 if __name__ == '__main__':
-	print_test_table()	
+	print_test_table()

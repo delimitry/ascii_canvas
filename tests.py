@@ -5,11 +5,17 @@
 #-----------------------------------------------------------------------
 
 import unittest
+import colors
 from style import Style
-from asciicanvas_colored import AsciiCanvas
+from asciicanvas import AsciiCanvas
+
 
 
 class TestAsciiCanvas(unittest.TestCase):
+    """
+    Test cases for AsciiCanvas
+    """
+
     def test_canvas_size(self):
         ascii_canvas = AsciiCanvas(10, 10)
         self.assertEqual(ascii_canvas.cols, 10)
@@ -356,6 +362,37 @@ class TestAsciiCanvas(unittest.TestCase):
             last('     ')
         self.assertEqual(ascii_canvas.get_canvas_as_str(), canvas_str)
         self.assertEqual(str(ascii_canvas), canvas_str)
+
+
+class TestColors(unittest.TestCase):
+    """
+    Test cases for Colors
+    """
+
+    def test_rgb_to_terminal_color(self):
+        self.assertEqual(colors.rgb_to_terminal_color((0, 0, 0)), colors.black)
+        self.assertEqual(colors.rgb_to_terminal_color((255, 0, 0)), colors.light_red)
+        self.assertEqual(colors.rgb_to_terminal_color((0, 255, 0)), colors.light_green)
+        self.assertEqual(colors.rgb_to_terminal_color((0, 0, 255)), colors.light_blue)
+        self.assertEqual(colors.rgb_to_terminal_color((44, 0, 22)), colors.black)
+        self.assertEqual(colors.rgb_to_terminal_color((65, 65, 0)), colors.yellow)
+        self.assertEqual(colors.rgb_to_terminal_color((140, 140, 140)), colors.dark_gray)
+        self.assertEqual(colors.rgb_to_terminal_color((190, 190, 190)), colors.gray)
+        self.assertEqual(colors.rgb_to_terminal_color((255, 255, 255)), colors.white)
+
+    def test_rgb_to_terminal_rgb_ranges(self):
+        with self.assertRaises(Exception):
+            colors.rgb_to_terminal_color((333, 0, 0))
+        with self.assertRaises(Exception):
+            colors.rgb_to_terminal_color((-1, 0, 0))
+        with self.assertRaises(Exception):
+            colors.rgb_to_terminal_color((0, 1111, 0))
+        with self.assertRaises(Exception):
+            colors.rgb_to_terminal_color((0, 0, 555))
+        with self.assertRaises(Exception):
+            colors.rgb_to_terminal_color((0, -123, 0))
+        with self.assertRaises(Exception):
+            colors.rgb_to_terminal_color((0, 0, -123))
 
 
 def line(s):

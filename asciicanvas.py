@@ -3,9 +3,10 @@
 # Author: delimitry
 #-----------------------------------------------------------------------
 
+import sys
 import copy
 import math
-from colors import *
+import colors
 from style import Style
 
 
@@ -23,7 +24,7 @@ class AsciiCanvas(object):
         self.cols = cols
         self.lines = lines
         if style is None:
-            style = Style(char=' ', fg_color=default, bg_color=default, font_style=normal)
+            style = Style(char=' ', fg_color=colors.default, bg_color=colors.default, font_style=colors.normal)
         else:
             style.char = self.__filter_char(style.char, ' ')
         self.style = style
@@ -41,7 +42,7 @@ class AsciiCanvas(object):
         """
         for line in self.canvas:
             for char_style in line:
-                print_style_char(char_style)
+                colors.print_style_char(char_style)
             sys.stdout.write('\n')
 
     def add_point(self, x, y, style=None):

@@ -1,4 +1,4 @@
-#-*- coding: utf8 -*-
+# -*- coding: utf8 -*-
 #-----------------------------------------------------------------------
 # Author: delimitry
 #-----------------------------------------------------------------------
@@ -191,7 +191,7 @@ class AsciiCanvas(object):
                 x_change += eight_b_square
                 ellipse_error += x_change
         while y0 - y1 <= b:
-            self.add_point(int(x0 - 1), int(y0), outline_style) 
+            self.add_point(int(x0 - 1), int(y0), outline_style)
             self.add_point(int(x1 + 1), int(y0), outline_style)
             self.add_point(int(x0 - 1), int(y1), outline_style)
             self.add_point(int(x1 + 1), int(y1), outline_style)

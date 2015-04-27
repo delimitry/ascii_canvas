@@ -10,7 +10,6 @@ from style import Style
 from asciicanvas import AsciiCanvas
 
 
-
 class TestAsciiCanvas(unittest.TestCase):
     """
     Test cases for AsciiCanvas

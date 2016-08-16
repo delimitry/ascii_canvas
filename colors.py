@@ -136,7 +136,7 @@ def rgb_to_terminal_color(rgb_color):
         raise Exception('R, G, B values must be in [0..255]')
     min_term_color = -1
     min_rgb_sum = 255 * 3
-    for term_color, rgb in terminal_colors.iteritems():
+    for term_color, rgb in terminal_colors.items():
         rgb_sum = sum(map(lambda x: abs(x[0] - x[1]), zip(rgb_color, rgb)))
         if rgb_sum < min_rgb_sum:
             min_rgb_sum = rgb_sum

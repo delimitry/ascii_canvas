@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 #-----------------------------------------------------------------------
 # Author: delimitry
 #-----------------------------------------------------------------------
@@ -28,13 +28,13 @@ class AsciiCanvas(object):
         else:
             style.char = self.__filter_char(style.char, ' ')
         self.style = style
-        self.canvas = [[style] * cols for _ in xrange(lines)]
+        self.canvas = [[style] * cols for _ in range(lines)]
 
     def clear(self):
         """
         Fill canvas with default style
         """
-        self.canvas = [[self.style] * self.cols for _ in xrange(self.lines)]
+        self.canvas = [[self.style] * self.cols for _ in range(self.lines)]
 
     def print_out(self):
         """
@@ -72,18 +72,18 @@ class AsciiCanvas(object):
             return
         # when dx >= dy use fill by x-axis, and use fill by y-axis otherwise
         if abs(dx) >= abs(dy):
-            for x in xrange(x0, x1 + 1):
+            for x in range(x0, x1 + 1):
                 y = y0 if dx == 0 else y0 + int(round((x - x0) * dy / float((dx))))
                 if self.check_coord_in_range(x, y):
                     self.canvas[y][x] = style
         else:
             if y0 < y1:
-                for y in xrange(y0, y1 + 1):
+                for y in range(y0, y1 + 1):
                     x = x0 if dy == 0 else x0 + int(round((y - y0) * dx / float((dy))))
                     if self.check_coord_in_range(x, y):
                         self.canvas[y][x] = style
             else:
-                for y in xrange(y1, y0 + 1):
+                for y in range(y1, y0 + 1):
                     x = x0 if dy == 0 else x1 + int(round((y - y1) * dx / float((dy))))
                     if self.check_coord_in_range(x, y):
                         self.canvas[y][x] = style
@@ -104,8 +104,8 @@ class AsciiCanvas(object):
         """
         fill_style = self.__prepare_style(fill_style, self.style.char)
         outline_style = self.__prepare_style(outline_style, 'o')
-        for px in xrange(x, x + w):
-            for py in xrange(y, y + h):
+        for px in range(x, x + w):
+            for py in range(y, y + h):
                 if self.check_coord_in_range(px, py):
                     if px == x or px == x + w - 1 or py == y or py == y + h - 1:
                         self.canvas[py][px] = outline_style
@@ -127,8 +127,8 @@ class AsciiCanvas(object):
         prepared_3x3_styles = []
         for index, style in enumerate(nine_patch_style[0:9]):
             prepared_3x3_styles.append(self.__prepare_style(style, None))
-        for px in xrange(x, x + w):
-            for py in xrange(y, y + h):
+        for px in range(x, x + w):
+            for py in range(y, y + h):
                 if self.check_coord_in_range(px, py):
                     if px == x and py == y:
                         self.canvas[py][px] = prepared_3x3_styles[0]

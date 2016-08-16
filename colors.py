@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 #-----------------------------------------------------------------------
 # Author: delimitry
 #-----------------------------------------------------------------------
@@ -61,8 +61,8 @@ if sys.platform == 'win32':
         print('=' * 4 * 16)
         print('Color table:')
         print('=' * 4 * 16)
-        for bg_color in xrange(0, 16):
-            for fg_color in xrange(0, 16):
+        for bg_color in range(0, 16):
+            for fg_color in range(0, 16):
                 print_color_text(' %02X ' % (bg_color * 16 + fg_color), fg_color, bg_color)
             sys.stdout.write('\n')
         print('=' * 4 * 16)

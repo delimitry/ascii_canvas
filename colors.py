@@ -50,6 +50,7 @@ if sys.platform == 'win32':
         else:
             reset_color(handle)
         sys.stdout.write(text)
+        sys.stdout.flush()
         reset_color(handle)
 
 

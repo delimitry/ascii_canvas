@@ -1,13 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
-#-----------------------------------------------------------------------
-# Author: delimitry
-#-----------------------------------------------------------------------
 
 import unittest
-import colors
-from style import Style
-from asciicanvas import AsciiCanvas
+from asciicanvas import colors
+from asciicanvas.style import Style
+from asciicanvas.asciicanvas import AsciiCanvas
 
 
 class TestAsciiCanvas(unittest.TestCase):

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""ASCII canvas"""
 
 import sys
 import copy

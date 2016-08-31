@@ -5,12 +5,13 @@ Setup file, used to install or test 'asciicanvas'
 """
 
 import os
+from asciicanvas import __version__
 from setuptools import setup
 
 
 setup(
     name='asciicanvas',
-    version='0.0.1',
+    version=__version__,
     author='Dmitry Alimov',
     description='ASCII canvas for drawing in console using ASCII chars',
     license='MIT',

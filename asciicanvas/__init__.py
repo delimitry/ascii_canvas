@@ -19,6 +19,6 @@ to terminal is supported.
 """
 
 __title__ = 'asciicanvas'
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 __author__ = 'Dmitry Alimov'
 __license__ = 'MIT'

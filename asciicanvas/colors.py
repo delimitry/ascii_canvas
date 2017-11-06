@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from style import Style
+from .style import Style
 
 
 if sys.platform == 'win32':

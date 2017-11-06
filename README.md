@@ -1,4 +1,7 @@
 # ASCII canvas
+[![PyPI version](https://badge.fury.io/py/asciicanvas.svg)](https://badge.fury.io/py/asciicanvas)
+[![Build Status](https://travis-ci.org/delimitry/ascii_canvas.svg?branch=master)](https://travis-ci.org/delimitry/ascii_canvas)
+
 ASCII canvas for drawing in console using ASCII chars
 
 Description:

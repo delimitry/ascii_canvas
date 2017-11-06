@@ -4,8 +4,8 @@
 import sys
 import copy
 import math
-import colors
-from style import Style
+from . import colors
+from .style import Style
 
 
 class AsciiCanvas(object):

@@ -2,6 +2,7 @@
 [![PyPI version](https://badge.fury.io/py/asciicanvas.svg)](https://badge.fury.io/py/asciicanvas)
 [![Build Status](https://travis-ci.org/delimitry/ascii_canvas.svg?branch=master)](https://travis-ci.org/delimitry/ascii_canvas)
 [![Coverage Status](https://coveralls.io/repos/github/delimitry/ascii_canvas/badge.svg?branch=master)](https://coveralls.io/github/delimitry/ascii_canvas?branch=master)
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/delimitry/ascii_canvas/blob/master/LICENSE)
 
 ASCII canvas for drawing in console using ASCII chars
 

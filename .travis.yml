@@ -5,5 +5,8 @@ python:
   - "3.6"
 install:
   - pip install .
+  - pip install coveralls
 script:
-  - python setup.py test
+  - coverage run --source=asciicanvas setup.py test
+after_success:
+  - coveralls
